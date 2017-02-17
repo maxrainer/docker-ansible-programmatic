@@ -50,5 +50,6 @@ ENV ELASTICSEARCH_PORT=9200
 ENV ELASTICSEARCH_TIMEOUT=3
 ENV ELASTICSEARCH_INDEX=ansible_logs
 
+EXPOSE 5000
 CMD /opt/apps/ansible-programmatic/api/jobapi.py -c /opt/apps/etc/config.xml
 
