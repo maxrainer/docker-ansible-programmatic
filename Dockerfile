@@ -34,10 +34,11 @@ RUN apt-get update -y && \
     apt-get clean
 
 RUN rm /etc/apt/apt.conf.d/docker-clean
-RUN mkdir /etc/ansible/
-RUN mkdir /opt/apps/ansible-programmatic
-RUN mkdir /opt/apps/ansible/playbooks
-RUN mkdir /opt/apps/etc
+RUN mkdir /etc/ansible/ \ 
+    /opt/apps \
+    /opt/apps/ansible-programmatic \
+    /opt/apps/ansible/playbooks \
+    /opt/apps/etc
 RUN locale-gen en_US.UTF-8
 RUN ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa && \
     cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys && \
