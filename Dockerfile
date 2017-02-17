@@ -37,6 +37,7 @@ RUN rm /etc/apt/apt.conf.d/docker-clean
 RUN mkdir /etc/ansible/ \ 
     /opt/apps \
     /opt/apps/ansible-programmatic \
+    /opt/apps/ansible \
     /opt/apps/ansible/playbooks \
     /opt/apps/etc
 RUN locale-gen en_US.UTF-8
