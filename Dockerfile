@@ -5,6 +5,7 @@ RUN apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     git \
     iproute2 \
+    less \
     locales \
     lsb-release \
     make \
@@ -26,6 +27,7 @@ RUN apt-get update -y && \
     python-yaml \
     sudo \
     unzip \
+    vim \
     virtualenv \
     zip \
     && \
