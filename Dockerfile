@@ -35,11 +35,14 @@ RUN apt-get update -y && \
 
 RUN rm /etc/apt/apt.conf.d/docker-clean
 RUN mkdir /etc/ansible/
+RUN mkdir /opt/apps/ansible-programmatic
+RUN mkdir /opt/apps/ansible/playbooks
+RUN mkdir /opt/apps/etc
 RUN locale-gen en_US.UTF-8
 RUN ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa && \
     cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys && \
     for key in /etc/ssh/ssh_host_*_key.pub; do echo "localhost $(cat ${key})" >> /root/.ssh/known_hosts; done
-RUN pip install Flask
+RUN pip install Flask Ansible
 
 ENV container=docker
 ENV ELASTICSEARCH_SERVER=localhost
@@ -47,5 +50,5 @@ ENV ELASTICSEARCH_PORT=9200
 ENV ELASTICSEARCH_TIMEOUT=3
 ENV ELASTICSEARCH_INDEX=ansible_logs
 
-CMD 
+CMD /opt/apps/ansible-programmatic/api/jobapi.py -c /opt/apps/etc/config.xml
 
