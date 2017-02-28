@@ -87,16 +87,16 @@ class CallbackModule(CallbackBase):
         self.run_output = []
         self.taskname = ""
         self.playname = ""  
+        self.uuid = ""
 
         self.logger =  logging.getLogger('ansible logger')
         self.logger.setLevel(logging.ERROR)
         logging.info("started")
 
-
     def _connect(self):
         if self.db_import:
             try:
-                self.es = self.elasticsearch.Elasticsearch(self.es_address, timeout=self.timeout)
+                self.es = self.elasticsearch.Elasticsearch(self.es_address, timeout=float(self.timeout))
             except Exception, e:
                 logging.error("Failed to connect elasticsearch server '%s'. Exception = %s " % (self.es_address, e))
                 return False
@@ -128,6 +128,7 @@ class CallbackModule(CallbackBase):
          results['status'] = status
          results['timestamp'] =  self._getTime()
          results['_type'] = doc_type
+         results['uuid'] = self.uuid
          if self.args is not None:
             results.update(self.args)
          self.run_output.append(results)
@@ -165,6 +166,9 @@ class CallbackModule(CallbackBase):
         self.taskname = task.get_name().strip()
 
     def v2_playbook_on_play_start(self, play):
+        if play._variable_manager:
+            if 'uuid' in play._variable_manager._extra_vars:
+                self.uuid = play._variable_manager._extra_vars['uuid']
         self.playname = play.get_name().strip()
 
 
