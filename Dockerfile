@@ -53,5 +53,9 @@ ENV ELASTICSEARCH_PORT=9200
 ENV ELASTICSEARCH_TIMEOUT=3
 ENV ELASTICSEARCH_INDEX=ansible_logs
 
+VOLUME /opt/apps/etc
+VOLUME /opt/apps/ansible/playbooks
+WORKDIR /opt/apps/ansible-programmatic/
+
 EXPOSE 5000
-CMD PYTHONPATH=/opt/apps/ansible-programmatic /usr/bin/python2 /opt/apps/ansible-programmatic/api/jobapi.py -c /opt/apps/etc/config.xml
+CMD /usr/bin/python2 /opt/apps/ansible-programmatic/api/jobapi.py -c /opt/apps/etc/config.xml
