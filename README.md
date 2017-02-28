@@ -2,7 +2,8 @@
 Docker build for Southbound Ansible Module
 
 
-1. add a config.xml file to host machine and mount that to /opt/apps/etc
+1. mount your local playbooks to /opt/apps/ansible/playbooks
+2. add a config.xml file to host machine and mount that to /opt/apps/etc
 
 ```
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -17,5 +18,3 @@ Docker build for Southbound Ansible Module
 		<elastic_url>http://localhost:9200</elastic_url>
 	</config>
 ```
-
-2. mount your local playbooks to /opt/apps/ansible/playbooks
