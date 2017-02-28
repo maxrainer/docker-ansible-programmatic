@@ -44,7 +44,7 @@ RUN locale-gen en_US.UTF-8
 RUN ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa && \
     cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys && \
     for key in /etc/ssh/ssh_host_*_key.pub; do echo "localhost $(cat ${key})" >> /root/.ssh/known_hosts; done
-RUN pip install Flask Ansible
+RUN pip install Flask Ansible redis
 RUN git clone https://github.com/maxrainer/ansible-programmatic.git /opt/apps/ansible-programmatic/
 
 ENV container=docker
