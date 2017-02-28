@@ -6,7 +6,7 @@ Docker build for Southbound Ansible Module
 	* must contain play file (default is site.yaml)
 	* must contain /roles directory 
 2. add a config.xml file to host machine and mount that to /opt/apps/etc
-	do not change tag "playbook_dir" for docker usage
+	* do not change tag "playbook_dir" for docker usage
 	
 ```
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
