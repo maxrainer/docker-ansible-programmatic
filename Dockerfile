@@ -46,6 +46,7 @@ RUN ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa && \
     for key in /etc/ssh/ssh_host_*_key.pub; do echo "localhost $(cat ${key})" >> /root/.ssh/known_hosts; done
 RUN pip install Flask Ansible redis
 RUN git clone https://github.com/maxrainer/ansible-programmatic.git /opt/apps/ansible-programmatic/
+COPY elasticsearch.py /usr/local/lib/python2.7/dist-packages/ansible/plugins/callback/
 
 ENV container=docker
 ENV ELASTICSEARCH_SERVER=localhost
