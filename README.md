@@ -33,4 +33,5 @@ REST API for Ansible Playbooks. Includes Redis Cache and Elasticsearch logging c
 	</config>
 ```
 
-## further usage instructions: https://github.com/maxrainer/ansible-programmatic
+## further usage instructions: 
+https://github.com/maxrainer/ansible-programmatic
