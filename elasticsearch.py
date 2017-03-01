@@ -34,7 +34,6 @@ import pytz
 import time
 import json
 
-
 from datetime import datetime
 from ansible import constants as C
 from ansible.plugins.callback import CallbackBase
@@ -121,7 +120,7 @@ class CallbackModule(CallbackBase):
         return False
 
 
-    def process_data(self, status, hostname,other=None, doc_type="ansible-runs"):
+    def process_data(self, status, hostname,other=None, doc_type="ansible-runs", result=None):
          results = {}
          results['hostname'] = hostname
          results['play'] = self.playname
@@ -130,11 +129,21 @@ class CallbackModule(CallbackBase):
          results['timestamp'] =  self._getTime()
          results['_type'] = doc_type
          results['uuid'] = self.uuid
+         if result:
+            if 'meta' in result:
+                results['meta'] = str(result['meta'])
+            if 'invocation' in result:
+                if 'module_name' in result['invocation']: 
+                    results['module_name'] = str(result['invocation']['module_name'])
+            if 'changed' in result:
+                results['ischanged'] = str(result['changed'])
+            if 'msg' in result: 
+                results['msg'] = result['msg']
          if self.args is not None:
             results.update(self.args)
          self.run_output.append(results)
 
-    def v2_runner_on_ok(self, result):
+    def v2_runner_on_ok(self, result): 
         status = None
         delegated_vars = result._result.get('_ansible_delegated_vars', None)
         if result._task.action == 'include':
@@ -146,8 +155,7 @@ class CallbackModule(CallbackBase):
 
         if result._task.loop and 'results' in result._result:
             self._process_items(result)
-
-        self.process_data(status, result._host.get_name())
+        self.process_data(status, result._host.get_name(), result=result._result)
     
     def v2_runner_on_failed(self, result, ignore_errors=False):
         results = {}
@@ -157,7 +165,7 @@ class CallbackModule(CallbackBase):
         if 'exception' in result._result:
             error = result._result['exception'].strip().split('\n')[-1]
             results['error'] = error
-        self.process_data("Failed", result._host.get_name(),results,"ansible-failures")
+        self.process_data("Failed", result._host.get_name(),results,"ansible-failures", result=result._result)
 
     def v2_runner_on_unreachable(self, result):
         self.process_data("Unreachable", result._host.get_name())
@@ -178,7 +186,7 @@ class CallbackModule(CallbackBase):
             if result._task.loop and 'results' in result._result:
                 self._process_items(result)
             else:
-                self.process_data("Skipped", result._host.get_name())
+                self.process_data("Skipped", result._host.get_name(), result=result._result)
 
     def v2_playbook_on_stats(self, stats):
         hosts = sorted(stats.processed.keys())
