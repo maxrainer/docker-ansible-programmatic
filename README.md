@@ -4,7 +4,7 @@ Docker build for Southbound Ansible Module
 ## Description
 REST API for Ansible Playbooks. Includes Redis Cache and Elasticsearch logging connections. (these two parts must be provided somewhere)
 
-## set this Environment Variables:
+## set these Environment Variables:
 	* ELASTICSEARCH_SERVER   (optional): defaults to localhost
 	* ELASTICSEARCH_PORT     (optional): defaults to 9200
 	* ELASTICSEARCH_TIMEOUT  (optional): defaults to 3 (seconds)
@@ -33,4 +33,4 @@ REST API for Ansible Playbooks. Includes Redis Cache and Elasticsearch logging c
 	</config>
 ```
 
-* further usage instructions: https://github.com/maxrainer/ansible-programmatic
+## further usage instructions: https://github.com/maxrainer/ansible-programmatic
