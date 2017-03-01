@@ -10,10 +10,10 @@ REST API for Ansible Playbooks. Includes Redis Cache and Elasticsearch logging c
 	* ELASTICSEARCH_TIMEOUT  (optional): defaults to 3 (seconds)
 	* ELASTICSEARCH_INDEX    (optional): defaults to 3 ansible_logs
 	* ELASTICSEARCH_DOC_ARGS (optional): Addtional json key-value pair(e.g. {"bar":"abc", "foo":"def"}) to be stored in each document
-	  * REDIS_SERVER   	(optional): defaults to localhost
-	  * REDIS_PORT   	(optional): defaults to 6379
-	  * REDIS_DB   		(optional): defaults to 0
-	  * REDIS_ENABLED   (optional): defaults to False
+	* REDIS_SERVER   	(optional): defaults to localhost
+	* REDIS_PORT   		(optional): defaults to 6379
+	* REDIS_DB   		(optional): defaults to 0
+	* REDIS_ENABLED   	(optional): defaults to False
 
 
 ## needed Volumes
