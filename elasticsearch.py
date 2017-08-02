@@ -198,7 +198,22 @@ class CallbackModule(CallbackBase):
             results['changed'] = t['changed']
             results['failed'] = t['failures']
             results['unreachable'] = t['unreachable']
+            results['task'] = "play recap"
             results['_type'] = "ansible-stats"
+            results['uuid'] = self.uuid
+            results['play'] = self.playname
+            if (t['failures'] > 0 ):
+            	results['status'] = "Failure"
+            elif (t['changed'] > 0):
+            	results['status'] = "Changed"
+            elif (t['unreachable'] > 0):
+            	results['status'] = "Unreachable"
+            elif (t['ok'] > 0):
+            	results['status'] = "Ok"
+            else:
+            	results['status'] = "unknown"
+            results['timestamp'] =  self._getTime()
+            results['meta'] = "ok=" + str(t['ok']) + ", changed=" + str(t['changed']) + ", unreachable=" + str(t['unreachable']) + ", failed=" + str(t['failures'])
             if self.args is not None:
                 results.update(self.args)
             self.run_output.append(results)
